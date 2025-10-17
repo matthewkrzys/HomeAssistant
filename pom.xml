@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.homeassistant</groupId>
+    <artifactId>homeassistant</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>HomeAssistant</name>
+
+    <!-- ✅ Moduły w projekcie -->
+    <modules>
+        <module>core</module>
+        <module>shopping</module>
+        <module>fuel</module>
+        <module>tasks</module>
+        <module>app</module>
+    </modules>
+
+    <!-- ✅ Spring Boot jako Parent (odziedziczą to wszystkie moduły) -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version> <!-- podmień jeśli chcesz inną wersję -->
+        <relativePath/> <!-- brak lokalnego parenta -->
+    </parent>
+
+    <!-- ✅ Zarządzanie wersjami, aby w podmodułach nie trzeba było ich powtarzać -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.homeassistant</groupId>
+                <artifactId>core</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.homeassistant</groupId>
+                <artifactId>shopping</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.homeassistant</groupId>
+                <artifactId>fuel</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.homeassistant</groupId>
+                <artifactId>tasks</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <!-- Spring Boot dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.2.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- H2 Database -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>2.2.224</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- Spring Web -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>3.2.4</version>
+            </dependency>
+
+            <!-- Spring Data JPA -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>3.2.4</version>
+            </dependency>
+
+            <!-- Lombok (opcjonalnie) -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <!-- ✅ Pluginy wspólne dla wszystkich modułów -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

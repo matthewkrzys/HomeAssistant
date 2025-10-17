@@ -1,0 +1,8 @@
+# Maven
+target/
+pom.xml.tag
+release.properties
+
+#Common
+.idea
+.gitignore

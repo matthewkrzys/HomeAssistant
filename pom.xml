@@ -11,7 +11,6 @@
 
     <name>HomeAssistant</name>
 
-    <!-- ✅ Moduły w projekcie -->
     <modules>
         <module>core</module>
         <module>shopping</module>
@@ -20,17 +19,20 @@
         <module>app</module>
     </modules>
 
-    <!-- ✅ Spring Boot jako Parent (odziedziczą to wszystkie moduły) -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version> <!-- podmień jeśli chcesz inną wersję -->
-        <relativePath/> <!-- brak lokalnego parenta -->
+        <version>3.2.4</version>
+        <relativePath/>
     </parent>
 
-    <!-- ✅ Zarządzanie wersjami, aby w podmodułach nie trzeba było ich powtarzać -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.42</version>
+            </dependency>
             <dependency>
                 <groupId>com.homeassistant</groupId>
                 <artifactId>core</artifactId>
@@ -51,7 +53,6 @@
                 <artifactId>tasks</artifactId>
                 <version>1.0.0</version>
             </dependency>
-            <!-- Spring Boot dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -60,7 +61,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- H2 Database -->
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
@@ -68,21 +68,18 @@
                 <scope>runtime</scope>
             </dependency>
 
-            <!-- Spring Web -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>3.2.4</version>
             </dependency>
 
-            <!-- Spring Data JPA -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>3.2.4</version>
             </dependency>
 
-            <!-- Lombok (opcjonalnie) -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -96,7 +93,6 @@
         <java.version>17</java.version>
     </properties>
 
-    <!-- ✅ Pluginy wspólne dla wszystkich modułów -->
     <build>
         <pluginManagement>
             <plugins>

@@ -1,9 +1,14 @@
 package com.homeassistant.shopping.service;
 
+import com.homeassistant.shopping.dto.ShoppingExpenseDto;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.repository.ShoppingExpenseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +28,36 @@ public class ShoppingExpenseService {
 
     public List<ShoppingExpense> findAll() {
         return Optional.of(repository.findAll()).orElse(Collections.emptyList());
+    }
+
+    public void saveExpenseWithFile(String category, BigDecimal amount, LocalDate date, String description, MultipartFile file) {
+        try {
+            ShoppingExpense expense = new ShoppingExpense();
+            expense.setCategory(category);
+            expense.setAmount(amount);
+            expense.setDate(date);
+            expense.setDescription(description);
+            expense.setImage(file.getBytes()); // zapis zdjęcia w bazie (byte[])
+
+            repository.save(expense);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read image file", e);
+        }
+    }
+
+    public ShoppingExpense getExpense(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
+    }
+
+    public ShoppingExpenseDto getExpenseDto(Long id) {
+        ShoppingExpense expense = getExpense(id);
+        ShoppingExpenseDto dto = new ShoppingExpenseDto();
+        dto.setId(expense.getId());
+        dto.setCategory(expense.getCategory());
+        dto.setAmount(expense.getAmount());
+        dto.setDate(expense.getDate());
+        dto.setDescription(expense.getDescription());
+        return dto;
     }
 }

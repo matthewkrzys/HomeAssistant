@@ -1,9 +1,16 @@
 package com.homeassistant.shopping.controller;
 
+import com.homeassistant.shopping.dto.ShoppingExpenseDto;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.service.ShoppingExpenseService;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -16,9 +23,30 @@ public class ShoppingExpenseController {
         this.service = service;
     }
 
-    @PostMapping
-    public ShoppingExpense add(@RequestBody ShoppingExpense expense) {
-        return service.save(expense);
+    @PostMapping()
+    public ResponseEntity<?> addShoppingExpense(
+            @RequestParam("category") String category,
+            @RequestParam("amount") BigDecimal amount,
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam("description") String description,
+            @RequestParam("file") MultipartFile file
+    ) {
+        service.saveExpenseWithFile(category, amount, date, description, file);
+        return ResponseEntity.ok("Expense saved!");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ShoppingExpenseDto> getExpense(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getExpenseDto(id));
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getExpenseImage(@PathVariable Long id) {
+        ShoppingExpense expense = service.getExpense(id);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .body(expense.getImage());
     }
 
     @GetMapping

@@ -1,7 +1,9 @@
 package com.homeassistant.shopping.entity;
 
 import com.homeassistant.core.entity.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +17,13 @@ import java.time.LocalDate;
 @Setter
 public class ShoppingExpense extends BaseEntity {
 
-    private String category;
-    private BigDecimal amount;
     private LocalDate date;
+    private BigDecimal amount;
+    private String category;
+    private String place;
     private String description;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] image;
 }

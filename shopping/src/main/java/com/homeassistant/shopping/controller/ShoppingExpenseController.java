@@ -1,6 +1,6 @@
 package com.homeassistant.shopping.controller;
 
-import com.homeassistant.shopping.dto.ShoppingExpenseDto;
+import com.homeassistant.shopping.dto.ShoppingExpenseResponse;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.service.ShoppingExpenseService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,7 +36,7 @@ public class ShoppingExpenseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ShoppingExpenseDto> getExpense(@PathVariable Long id) {
+    public ResponseEntity<ShoppingExpenseResponse> getExpense(@PathVariable Long id) {
         return ResponseEntity.ok(service.getExpenseDto(id));
     }
 
@@ -48,7 +48,6 @@ public class ShoppingExpenseController {
                 .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
                 .body(expense.getImage());
     }
-
     @GetMapping
     public List<ShoppingExpense> getAll() {
         return service.findAll();

@@ -1,8 +1,9 @@
 package com.homeassistant.shopping.service;
 
-import com.homeassistant.shopping.dto.ShoppingExpenseDto;
+import com.homeassistant.shopping.dto.ShoppingExpenseResponse;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.repository.ShoppingExpenseRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +18,12 @@ import java.util.Optional;
 public class ShoppingExpenseService {
 
     private final ShoppingExpenseRepository repository;
+    private final ModelMapper modelMapper;
 
-    public ShoppingExpenseService(ShoppingExpenseRepository repository) {
+
+    public ShoppingExpenseService(ShoppingExpenseRepository repository, ModelMapper modelMapper) {
         this.repository = repository;
+        this.modelMapper = modelMapper;
     }
 
     public ShoppingExpense save(ShoppingExpense expense) {
@@ -50,14 +54,7 @@ public class ShoppingExpenseService {
                 .orElseThrow(() -> new RuntimeException("Expense not found"));
     }
 
-    public ShoppingExpenseDto getExpenseDto(Long id) {
-        ShoppingExpense expense = getExpense(id);
-        ShoppingExpenseDto dto = new ShoppingExpenseDto();
-        dto.setId(expense.getId());
-        dto.setCategory(expense.getCategory());
-        dto.setAmount(expense.getAmount());
-        dto.setDate(expense.getDate());
-        dto.setDescription(expense.getDescription());
-        return dto;
+    public ShoppingExpenseResponse getExpenseDto(Long id) {
+        return modelMapper.map(getExpense(id), ShoppingExpenseResponse.class);
     }
 }

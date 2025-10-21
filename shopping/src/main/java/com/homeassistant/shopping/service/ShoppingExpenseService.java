@@ -3,6 +3,7 @@ package com.homeassistant.shopping.service;
 import com.homeassistant.shopping.dto.ShoppingExpenseResponse;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.repository.ShoppingExpenseRepository;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,10 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class ShoppingExpenseService {
 
-    private final ShoppingExpenseRepository repository;
-    private final ModelMapper modelMapper;
+    private ShoppingExpenseRepository repository;
+    private ModelMapper modelMapper;
 
 
     public ShoppingExpenseService(ShoppingExpenseRepository repository, ModelMapper modelMapper) {

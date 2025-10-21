@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/shopping")
 public class ShoppingExpenseController {
 
-    private final ShoppingExpenseService service;
+    private ShoppingExpenseService service;
 
     public ShoppingExpenseController(ShoppingExpenseService service) {
         this.service = service;

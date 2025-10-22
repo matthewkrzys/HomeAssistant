@@ -25,14 +25,15 @@ public class ShoppingExpenseController {
 
     @PostMapping()
     public ResponseEntity<?> addShoppingExpense(
-            @RequestParam("category") String category,
-            @RequestParam("amount") BigDecimal amount,
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam("amount") BigDecimal amount,
+            @RequestParam("category") String category,
+            @RequestParam("place") String place,
             @RequestParam("description") String description,
             @RequestParam("file") MultipartFile file
     ) {
-        service.saveExpenseWithFile(category, amount, date, description, file);
-        return ResponseEntity.ok("Expense saved!");
+        ShoppingExpense expense = service.saveExpenseWithFile(date, amount, category, place, description, file);
+        return ResponseEntity.ok(expense);
     }
 
     @GetMapping("/{id}")

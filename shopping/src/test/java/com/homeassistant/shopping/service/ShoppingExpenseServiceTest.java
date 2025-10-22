@@ -40,7 +40,7 @@ class ShoppingExpenseServiceTest {
         MockMultipartFile file = new MockMultipartFile(
                 "file", "test.jpg", "image/jpeg", "fakeimage".getBytes()
         );
-        service.saveExpenseWithFile("Food", BigDecimal.valueOf(100), LocalDate.now(), "Test", file);
+        service.saveExpenseWithFile(LocalDate.of(2025, 1, 1), BigDecimal.valueOf(100), "Food", "Lidl", "Test", file);
         verify(repository, times(1)).save(any(ShoppingExpense.class));
     }
 

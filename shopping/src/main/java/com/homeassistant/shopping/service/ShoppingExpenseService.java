@@ -3,7 +3,7 @@ package com.homeassistant.shopping.service;
 import com.homeassistant.shopping.dto.ShoppingExpenseResponse;
 import com.homeassistant.shopping.entity.ShoppingExpense;
 import com.homeassistant.shopping.repository.ShoppingExpenseRepository;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,17 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
+@AllArgsConstructor
 public class ShoppingExpenseService {
 
     private ShoppingExpenseRepository repository;
     private ModelMapper modelMapper;
-
-
-    public ShoppingExpenseService(ShoppingExpenseRepository repository, ModelMapper modelMapper) {
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-    }
 
     public ShoppingExpense save(ShoppingExpense expense) {
         return repository.save(expense);
@@ -36,16 +30,17 @@ public class ShoppingExpenseService {
         return Optional.of(repository.findAll()).orElse(Collections.emptyList());
     }
 
-    public void saveExpenseWithFile(String category, BigDecimal amount, LocalDate date, String description, MultipartFile file) {
+    public ShoppingExpense saveExpenseWithFile(LocalDate date, BigDecimal amount, String category, String place, String description, MultipartFile file) {
         try {
             ShoppingExpense expense = new ShoppingExpense();
-            expense.setCategory(category);
-            expense.setAmount(amount);
             expense.setDate(date);
+            expense.setAmount(amount);
+            expense.setCategory(category);
+            expense.setPlace(place);
             expense.setDescription(description);
-            expense.setImage(file.getBytes()); // zapis zdjęcia w bazie (byte[])
+            expense.setImage(file.getBytes());
 
-            repository.save(expense);
+            return repository.save(expense);
         } catch (IOException e) {
             throw new RuntimeException("Failed to read image file", e);
         }

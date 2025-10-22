@@ -25,15 +25,16 @@ class ShoppingExpenseRepositoryTest {
     @Test
     void shouldSaveAndReadExpense() {
         ShoppingExpense expense = new ShoppingExpense();
-        expense.setCategory("Groceries");
+        expense.setDate(LocalDate.of(2025,1,1));
         expense.setAmount(BigDecimal.valueOf(120.50));
-        expense.setDate(LocalDate.now());
-
+        expense.setCategory("Food");
+        expense.setPlace("Lidl");
+        expense.setDescription("Description");
+        expense.setImage("fake-image".getBytes());
         repository.save(expense);
-
         assertEquals(repository.findAll().size(), 1);
     }
-
+    
     @Configuration
     @EnableJpaRepositories(basePackages = "com.homeassistant.shopping.repository")
     @EntityScan(basePackages = "com.homeassistant.shopping.entity")

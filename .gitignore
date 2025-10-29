@@ -6,3 +6,6 @@ release.properties
 #Common
 .idea
 .gitignore
+
+frontend/node_modules
+frontend/package-lock.json

@@ -1,5 +1,6 @@
-import { VStack, Button, Box, Text } from "@chakra-ui/react";
+import { Button, Box, Text, VStack } from "@chakra-ui/react";
 import { ViewType } from "../App";
+
 
 interface SidebarProps {
   onSelect: (view: ViewType) => void;
@@ -17,7 +18,7 @@ const Sidebar = ({ onSelect, activeView }: SidebarProps) => {
       flexDirection="column"
       justifyContent="space-between"
     >
-      <VStack align="stretch" spacing={3}>
+      <VStack align="stretch">
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           🛒 Home Assistant
         </Text>

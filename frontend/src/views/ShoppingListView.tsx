@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Image,
   Spinner,
   VStack,
   Text,
+  Table,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -60,29 +54,26 @@ const ShoppingListView = () => {
     );
 
   return (
-    <TableContainer>
-      <Table variant="simple" colorScheme="gray">
-        <Thead>
-          <Tr>
-            <Th>ID</Th>
-            <Th>Data</Th>
-            <Th>Kwota (zł)</Th>
-            <Th>Kategoria</Th>
-            <Th>Miejsce</Th>
-            <Th>Opis</Th>
-            <Th>Zdjęcie</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {items.map((item) => (
-            <Tr key={item.id}>
-              <Td>{item.id}</Td>
-              <Td>{item.date}</Td>
-              <Td>{item.amount.toFixed(2)}</Td>
-              <Td>{item.category}</Td>
-              <Td>{item.place}</Td>
-              <Td>{item.description}</Td>
-              <Td>
+    <Table.Root size="sm" showColumnBorder>
+      <Table.Header>
+        <Table.Row>
+          <Table.ColumnHeader>Data</Table.ColumnHeader>
+          <Table.ColumnHeader textAlign="end">Kwota</Table.ColumnHeader>
+          <Table.ColumnHeader>Category</Table.ColumnHeader>
+          <Table.ColumnHeader>Miejsce</Table.ColumnHeader>
+          <Table.ColumnHeader>Opis</Table.ColumnHeader>
+          <Table.ColumnHeader>Zdjęcie</Table.ColumnHeader>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {items.map((item) => (
+          <Table.Row key={item.id}>
+              <Table.Cell>{item.date}</Table.Cell>
+              <Table.Cell textAlign="end">{item.amount}</Table.Cell>
+              <Table.Cell>{item.category}</Table.Cell>
+              <Table.Cell>{item.place}</Table.Cell>
+              <Table.Cell>{item.description}</Table.Cell>
+              <Table.Cell>
                 {item.image ? (
                   // jeśli Base64
                   <Image
@@ -95,12 +86,11 @@ const ShoppingListView = () => {
                 ) : (
                   <Text>Brak zdjęcia</Text>
                 )}
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+              </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Root>
   );
 };
 

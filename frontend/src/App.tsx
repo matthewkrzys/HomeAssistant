@@ -3,7 +3,7 @@ import { Flex, Box } from "@chakra-ui/react";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 
-export type ViewType = "shopping" | "expenses" | "stats";
+export type ViewType = "shopping" | "addShopping";
 
 function App() {
   const [view, setView] = useState<ViewType>("shopping");

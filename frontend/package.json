@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/button": "^2.1.0",
+    "@chakra-ui/form-control": "^2.2.0",
     "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/input": "^2.1.2",
     "@chakra-ui/react": "^3.28.0",
+    "@chakra-ui/textarea": "^2.1.2",
     "@emotion/react": "^11.14.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

@@ -29,6 +29,13 @@ const Sidebar = ({ onSelect, activeView }: SidebarProps) => {
         >
           Lista zakupów
         </Button>
+        <Button
+          colorScheme="whiteAlpha"
+          variant={activeView === "addShopping" ? "solid" : "ghost"}
+          onClick={() => onSelect("addShopping")}
+        >
+          Dodaj zakup
+        </Button>
       </VStack>
 
       <Box mt="auto" textAlign="center" fontSize="sm" opacity={0.7}>

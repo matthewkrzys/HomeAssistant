@@ -1,0 +1,19 @@
+FROM maven:3.9.9-eclipse-temurin-21 AS build
+WORKDIR /app
+
+COPY pom.xml .
+COPY app ./app
+COPY core ./core
+COPY shopping ./shopping
+COPY fuel ./fuel
+COPY tasks ./tasks
+
+RUN ls -la
+RUN mvn -f pom.xml clean install -DskipTests
+
+FROM eclipse-temurin:21-jdk-jammy
+WORKDIR /app
+COPY --from=build /app/app/target/app-*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

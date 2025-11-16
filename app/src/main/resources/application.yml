@@ -1,16 +1,14 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:postgresql://postgres:5432/homeassistant
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # lub validate / migrate, zależnie od Flyway/Liquibase
     show-sql: true
-  h2:
-    console:
-      enabled: true
-
-server:
-  port: 8080
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
